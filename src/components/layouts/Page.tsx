@@ -1,10 +1,8 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { PropsWithChildren, memo } from 'react'
 import { HomepageMeta } from '../../data/dataDef'
-import { mainTheme } from '../../theme/themes'
 
 const Page: NextPage<PropsWithChildren<HomepageMeta>> = memo(({ children, title, description }) => {
   const { asPath: pathname } = useRouter()
@@ -32,10 +30,8 @@ const Page: NextPage<PropsWithChildren<HomepageMeta>> = memo(({ children, title,
         <meta content={title} name='twitter:title' />
         <meta content={description} name='twitter:description' />
       </Head>
-      <ThemeProvider theme={mainTheme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
+
+      {children}
     </>
   )
 })
