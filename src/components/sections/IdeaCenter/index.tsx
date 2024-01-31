@@ -33,11 +33,16 @@ const IdeaCenter: FC = memo(() => {
           sx={{ width: '60%' }}
           justifyContent='center'
         >
-          <Stack direction='row' columnGap={1} width={1} padding={2}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            spacing={{ xs: 1, md: 3 }}
+            width={1}
+            padding={2}
+          >
             <TextField
               label='Search an Idea..'
               variant='filled'
-              sx={{ flexGrow: 1, width: '60%' }}
+              sx={{ width: { xs: '100%', md: '60%' } }}
             />
             <Button variant='outlined'>Search</Button>
             <Button variant='outlined' color='warning'>
