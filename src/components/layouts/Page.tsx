@@ -1,3 +1,4 @@
+import { CssBaseline } from '@mui/material'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -12,6 +13,7 @@ const Page: NextPage<PropsWithChildren<HomepageMeta>> = memo(({ children, title,
       <Head>
         <title>{title}</title>
         <meta content={description} name='description' />
+        <meta name='viewport' content='initial-scale=1, width=device-width' />
 
         {/* several domains list the same content, make sure google knows we mean this one. */}
         <link href={`https://reactresume.com${pathname}`} key='canonical' rel='canonical' />
@@ -30,7 +32,7 @@ const Page: NextPage<PropsWithChildren<HomepageMeta>> = memo(({ children, title,
         <meta content={title} name='twitter:title' />
         <meta content={description} name='twitter:description' />
       </Head>
-
+      <CssBaseline />
       {children}
     </>
   )
