@@ -6,6 +6,7 @@ import Section from '../../layouts/Section'
 import IdeaCard from './IdeaCard'
 
 import { ideaData } from '../../../data/testData'
+import { IdeaForm } from './IdeaForm'
 
 const MAX_ITEMS_PER_PAGE = 10
 
@@ -37,11 +38,12 @@ const IdeaCenter: FC = memo(() => {
               placeholder='Search an Idea...'
               variant='outlined'
               sx={{ width: { xs: '100%', md: '60%' } }}
+              type='search'
             />
-            <Button variant='outlined'>Search</Button>
-            <Button variant='outlined' color='warning'>
-              Propose!
+            <Button variant='outlined' sx={{ height: '100%' }}>
+              Search
             </Button>
+            <IdeaForm />
           </Stack>
         </Grid>
         <Box
@@ -53,7 +55,7 @@ const IdeaCenter: FC = memo(() => {
         >
           <Grid
             container
-            alignItems='center'
+            alignItems='top'
             justifyContent='center'
             spacing={2}
             columns={{ xs: 1, sm: 2, md: 3, lg: 5 }}

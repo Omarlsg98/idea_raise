@@ -4,7 +4,7 @@
  * It exports the IdeaDetails component which is a full screen overlay that displays the details of the idea.
  */
 
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { FC, memo, useState } from 'react'
 import { IdeaDataDef } from './IdeaCard'
@@ -52,12 +52,17 @@ const PledgeButton: FC<IdeaDataDef> = memo(
                   variant='outlined'
                   sx={{ width: { xs: '100%', md: '70%' } }}
                   type='email'
+                  helperText='We will send you a confirmation email, and updates on the idea.'
                 />
                 <TextField
                   label='Pledge Amount'
                   placeholder='50'
                   variant='outlined'
                   type='number'
+                  InputProps={{
+                    startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+                  }}
+                  helperText='How much are you willing to pay for this idea?'
                 />
               </Stack>
               <Stack direction='row' spacing={2} justifyContent='center'>
