@@ -26,22 +26,16 @@ const IdeaCenter: FC = memo(() => {
         className='bg-slate-50'
         paddingBlockEnd={3}
       >
-        <Grid
-          container
-          alignItems='center'
-          height='20vh'
-          sx={{ width: '60%' }}
-          justifyContent='center'
-        >
+        <Grid container alignItems='center' sx={{ width: '60%' }} justifyContent='center'>
           <Stack
             direction={{ xs: 'column', md: 'row' }}
             spacing={{ xs: 1, md: 3 }}
             width={1}
-            padding={2}
+            padding={5}
           >
             <TextField
-              label='Search an Idea..'
-              variant='filled'
+              placeholder='Search an Idea...'
+              variant='outlined'
               sx={{ width: { xs: '100%', md: '60%' } }}
             />
             <Button variant='outlined'>Search</Button>
