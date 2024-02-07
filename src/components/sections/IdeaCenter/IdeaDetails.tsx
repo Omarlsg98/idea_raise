@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal'
 import { FC, memo, useState } from 'react'
 import { IdeaDetailsProps } from './definitions'
 
+import GeneralDialog from '../../GeneralDialog'
 import { IdeaForm } from './IdeaForm'
 import { PledgeButton } from './PledgeForm'
 
@@ -68,9 +69,15 @@ const IdeaDetails: FC<IdeaDetailsProps> = memo(({ idea, ideasList, setIdeasList 
               buttonName='Edit'
             />
             <PledgeButton idea={idea} ideasList={ideasList} setIdeasList={setIdeasList} />
-            <Button size='medium' variant='outlined' sx={{ textAlign: 'center' }}>
-              Solve
-            </Button>
+            <GeneralDialog
+              buttonName='Make it real!'
+              title='Do you want to build this Idea?'
+              message={`Right now we haven't implemented the feature to submit the product, but you can still create it!
+              Once you have it, contact us and we will help you distribute your product and 
+              collect the funds from the ideators who pledged money!`}
+              buttonColor='primary'
+              closeButtonLabel={`Let's create this!`}
+            />
           </Stack>
           <br />
 
