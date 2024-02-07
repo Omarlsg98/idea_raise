@@ -39,7 +39,7 @@ const Hero: FC = memo(() => {
                   'flex gap-x-2 rounded-full border-2 bg-none px-4 py-2 text-sm font-medium text-white ring-offset-gray-700/80 hover:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-base',
                   'border-teal-500 ring-teal-500',
                 )}
-                href={`/#${SectionId.IdeaCenter}`}
+                href={`/${SectionId.IdeaCenter}`}
                 key={'Idea Center'}
               >
                 'Go to Idea Center!'
