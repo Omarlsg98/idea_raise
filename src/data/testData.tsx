@@ -1,5 +1,6 @@
-export const ideaData = [
+export var ideaData = [
   {
+    id: 1,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -8,6 +9,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 2,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec euismod velit, non
@@ -39,6 +41,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 3,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -47,6 +50,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 4,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -55,6 +59,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 5,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -63,6 +68,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 6,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -71,6 +77,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 7,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:
@@ -79,6 +86,7 @@ export const ideaData = [
     totalParticipants: 10,
   },
   {
+    id: 8,
     title: 'Extraction of email information to excel',
     category: 'Automation',
     description:

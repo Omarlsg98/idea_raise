@@ -12,15 +12,9 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import IdeaDetails from './IdeaDetails'
 
-const MAX_DESCRIPTION_LENGTH = 200
+import { IdeaDetailsProps } from './definitions'
 
-interface IdeaDataDef {
-  title: string
-  category: string
-  description: string
-  totalPrize: number
-  totalParticipants: number
-}
+const MAX_DESCRIPTION_LENGTH = 200
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,43 +23,33 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
 }))
 
-const IdeaCard: FC<IdeaDataDef> = memo(
-  ({ title, category, description, totalPrize, totalParticipants }) => {
-    const formated_description =
-      description.length > MAX_DESCRIPTION_LENGTH
-        ? description.slice(0, MAX_DESCRIPTION_LENGTH) + ' ...'
-        : description + ''.repeat(MAX_DESCRIPTION_LENGTH - description.length)
-    return (
-      <Grid item xs={1} sx={{ minWidth: '20%' }}>
-        <Item>
-          <Typography variant='h6' component='div'>
-            {title}
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-            {category}
-          </Typography>
-          <Typography align='left' variant='body1'>
-            {formated_description}
-          </Typography>
-          <br />
-          <Typography>
-            Prize: ${totalPrize}USD <br />
-            by {totalParticipants} participants
-          </Typography>
-          <IdeaDetails
-            title={title}
-            category={category}
-            description={description}
-            totalPrize={totalPrize}
-            totalParticipants={totalParticipants}
-          />
-        </Item>
-      </Grid>
-    )
-  },
-)
+const IdeaCard: FC<IdeaDetailsProps> = memo(({ idea, ideasList, setIdeasList }) => {
+  const formated_description =
+    idea.description.length > MAX_DESCRIPTION_LENGTH
+      ? idea.description.slice(0, MAX_DESCRIPTION_LENGTH) + ' ...'
+      : idea.description + ''.repeat(MAX_DESCRIPTION_LENGTH - idea.description.length)
+  return (
+    <Grid item xs={1} sx={{ minWidth: '20%' }}>
+      <Item>
+        <Typography variant='h6' component='div'>
+          {idea.title}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color='text.secondary'>
+          {idea.category}
+        </Typography>
+        <Typography align='left' variant='body1'>
+          {formated_description}
+        </Typography>
+        <br />
+        <Typography>
+          Prize: ${idea.totalPrize}USD <br />
+          by {idea.totalParticipants} participants
+        </Typography>
+        <IdeaDetails idea={idea} ideasList={ideasList} setIdeasList={setIdeasList} />
+      </Item>
+    </Grid>
+  )
+})
 
 IdeaCard.displayName = 'Idea Card'
 export default IdeaCard
-
-export type { IdeaDataDef }

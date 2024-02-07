@@ -12,6 +12,7 @@ const MAX_ITEMS_PER_PAGE = 10
 
 const IdeaCenter: FC = memo(() => {
   const [page, setPage] = useState(0)
+  const [ideasListState, setIdeaList] = useState(ideaData)
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value - 1)
@@ -43,7 +44,12 @@ const IdeaCenter: FC = memo(() => {
             <Button variant='outlined' sx={{ height: '100%' }}>
               Search
             </Button>
-            <IdeaForm />
+            <IdeaForm
+              ideasList={ideasListState}
+              setIdeasList={setIdeaList}
+              buttonColor='success'
+              buttonName='Propose!'
+            />
           </Stack>
         </Grid>
         <Box
@@ -60,22 +66,20 @@ const IdeaCenter: FC = memo(() => {
             spacing={2}
             columns={{ xs: 1, sm: 2, md: 3, lg: 5 }}
           >
-            {ideaData
+            {ideasListState
               .slice(page * MAX_ITEMS_PER_PAGE, (page + 1) * MAX_ITEMS_PER_PAGE)
               .map((idea, index) => (
                 <IdeaCard
                   key={index}
-                  title={idea.title}
-                  category={idea.category}
-                  description={idea.description}
-                  totalPrize={idea.totalPrize}
-                  totalParticipants={idea.totalParticipants}
+                  idea={idea}
+                  ideasList={ideasListState}
+                  setIdeasList={setIdeaList}
                 />
               ))}
           </Grid>
         </Box>
         <Pagination
-          count={Math.ceil(ideaData.length / MAX_ITEMS_PER_PAGE)}
+          count={Math.ceil(ideasListState.length / MAX_ITEMS_PER_PAGE)}
           page={page + 1}
           onChange={handleChange}
           showFirstButton
