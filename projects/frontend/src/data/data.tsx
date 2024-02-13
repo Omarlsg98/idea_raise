@@ -26,7 +26,7 @@ export const homePageMeta: HomepageMeta = {
 export const contact: ContactSection = {
   headerText: "Let's connect!",
   description:
-    "If you want to connect with me for new opportunities, collaboration, or just to say hi, I'm always open to new ideas and opportunities.",
+    'If you want to connect with me and my team for new opportunities, collaboration, or just to say hi, We are always open to feedback and proposals.',
   items: [
     {
       type: ContactType.LinkedIn,

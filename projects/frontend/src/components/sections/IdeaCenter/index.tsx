@@ -6,11 +6,13 @@ import Section from '../../layouts/Section'
 import IdeaCard from './IdeaCard'
 
 import { ideaData } from '../../../data/testData'
+import { IdeaForm } from './IdeaForm'
 
 const MAX_ITEMS_PER_PAGE = 10
 
 const IdeaCenter: FC = memo(() => {
   const [page, setPage] = useState(0)
+  const [ideasListState, setIdeaList] = useState(ideaData)
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value - 1)
@@ -26,28 +28,28 @@ const IdeaCenter: FC = memo(() => {
         className='bg-slate-50'
         paddingBlockEnd={3}
       >
-        <Grid
-          container
-          alignItems='center'
-          height='20vh'
-          sx={{ width: '60%' }}
-          justifyContent='center'
-        >
+        <Grid container alignItems='center' sx={{ width: '60%' }} justifyContent='center'>
           <Stack
             direction={{ xs: 'column', md: 'row' }}
             spacing={{ xs: 1, md: 3 }}
             width={1}
-            padding={2}
+            padding={5}
           >
             <TextField
-              label='Search an Idea..'
-              variant='filled'
+              placeholder='Search an Idea...'
+              variant='outlined'
               sx={{ width: { xs: '100%', md: '60%' } }}
+              type='search'
             />
-            <Button variant='outlined'>Search</Button>
-            <Button variant='outlined' color='warning'>
-              Propose!
+            <Button variant='outlined' sx={{ height: '100%' }}>
+              Search
             </Button>
+            <IdeaForm
+              ideasList={ideasListState}
+              setIdeasList={setIdeaList}
+              buttonColor='success'
+              buttonName='Propose!'
+            />
           </Stack>
         </Grid>
         <Box
@@ -59,27 +61,25 @@ const IdeaCenter: FC = memo(() => {
         >
           <Grid
             container
-            alignItems='center'
+            alignItems='top'
             justifyContent='center'
             spacing={2}
             columns={{ xs: 1, sm: 2, md: 3, lg: 5 }}
           >
-            {ideaData
+            {ideasListState
               .slice(page * MAX_ITEMS_PER_PAGE, (page + 1) * MAX_ITEMS_PER_PAGE)
               .map((idea, index) => (
                 <IdeaCard
                   key={index}
-                  title={idea.title}
-                  category={idea.category}
-                  description={idea.description}
-                  totalPrize={idea.totalPrize}
-                  totalParticipants={idea.totalParticipants}
+                  idea={idea}
+                  ideasList={ideasListState}
+                  setIdeasList={setIdeaList}
                 />
               ))}
           </Grid>
         </Box>
         <Pagination
-          count={Math.ceil(ideaData.length / MAX_ITEMS_PER_PAGE)}
+          count={Math.ceil(ideasListState.length / MAX_ITEMS_PER_PAGE)}
           page={page + 1}
           onChange={handleChange}
           showFirstButton
