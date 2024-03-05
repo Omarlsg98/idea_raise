@@ -21,6 +21,8 @@ import { PledgeForm } from './PledgeForm'
 
 import { IdeaDataDef } from './definitions'
 
+import { postIdea, putIdea } from './backendConn'
+
 const categoryOptions = [
   { label: 'Office Automation' },
   { label: 'Funny' },
@@ -87,9 +89,11 @@ const IdeaForm: FC<IdeaFormProps> = memo(
         return
       }
 
+      let newIdea;
+
       const newIdeaList = ideaData.map((ideaItem) => {
         if (ideaItem.id === idea.id) {
-          return {
+          newIdea = {
             title: formData.title,
             category: formData.category,
             description: formData.description,
@@ -97,26 +101,40 @@ const IdeaForm: FC<IdeaFormProps> = memo(
             totalParticipants: idea.totalParticipants,
             id: idea.id,
           }
+          return newIdea
         }
         return ideaItem
       })
+
+      if (!newIdea) {
+        console.error('No idea to edit!')
+        return
+      }
+
+      const result = putIdea(newIdea)
+
       setIdeaData(newIdeaList)
       setFeedback({ open: true, message: 'Idea edited succesfully!' })
       setOpenModal(false)
     }
 
     const addIdea = () => {
-      setIdeaData([
-        {
-          title: formData.title,
-          category: formData.category,
-          description: formData.description,
-          totalPrize: formData.pledge,
-          totalParticipants: 1,
-          id: ideaData.length + 1,
-        },
-        ...ideaData,
-      ])
+      if (!formData) {
+        console.error('No idea to add!')
+        return
+      }
+
+      const newIdea: IdeaDataDef = {
+        title: formData.title,
+        category: formData.category,
+        description: formData.description,
+        totalPrize: formData.pledge,
+        totalParticipants: 1,
+        id: ideaData.length + 1,
+      }
+      const result = postIdea(newIdea)
+
+      setIdeaData([newIdea, ...ideaData])
 
       setFeedback({ open: true, message: 'Idea added succesfully!' })
       setOpenModal(false)
@@ -234,3 +252,4 @@ const IdeaForm: FC<IdeaFormProps> = memo(
 
 IdeaForm.displayName = 'Ideas Form'
 export { IdeaForm }
+

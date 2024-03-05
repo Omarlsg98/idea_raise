@@ -8,6 +8,7 @@
 import { Box, Button, InputAdornment, Snackbar, Stack, TextField, Typography } from '@mui/material'
 import Modal from '@mui/material/Modal'
 import { FC, memo, useState } from 'react'
+import { putIdea } from './backendConn'
 import { IdeaDetailsProps } from './definitions'
 
 const style = {
@@ -84,6 +85,8 @@ const PledgeButton: FC<IdeaDetailsProps> = memo(({ idea, ideasList, setIdeasList
 
     nextIdea.totalParticipants++
     nextIdea.totalPrize += formData.pledge
+
+    const result = putIdea(nextIdea)
     setIdeasList(nextIdeaData)
 
     setFeedback({ open: true, message: 'Pledge added succesfully!' })
@@ -138,3 +141,4 @@ const PledgeButton: FC<IdeaDetailsProps> = memo(({ idea, ideasList, setIdeasList
 
 PledgeButton.displayName = 'Pledge Button'
 export { PledgeButton, PledgeForm }
+
