@@ -1,4 +1,6 @@
 fastapi[all]
 mangum
+boto3
+python-dotenv
 
 uvicorn
