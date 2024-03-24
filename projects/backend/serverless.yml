@@ -1,0 +1,79 @@
+service: idea-raise-backend
+
+frameworkVersion: '3'
+
+custom:
+  tableName: 'ideas-table-${sls:stage}'
+  pythonRequirements:
+    dockerizePip: non-linux
+    useStaticCache: false
+    useDownloadCache: false
+    #zip: true
+    usePipenv: true
+    layer:
+      name: serverless-fastapi-deps
+      description: Serverless FastAPI dependencies layer
+      compatibleRuntimes:
+        - python3.9
+
+package:
+  patterns:
+    - "!README.md"
+    - "!tests/**"
+    - "!**/__pycache__/**"
+    - "!node_modules/**"
+    - "!package.json"
+    - "!package-lock.json"
+    - "!Pipfile.lock"
+
+provider:
+  name: aws
+  runtime: python3.11
+  architecture: arm64
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [ IdeasTable, Arn ]
+  environment:
+    IDEAS_TABLE: ${self:custom.tableName}
+
+functions:
+  api:
+    handler: app.main.handler
+    name: ${self:service}-${sls:stage}-api
+    environment:
+      STAGE: ${sls:stage}
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
+
+resources:
+  Resources:
+    IdeasTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: idea_id
+            AttributeType: S
+          - AttributeName: category
+            AttributeType: S
+        KeySchema:
+          - AttributeName: idea_id
+            KeyType: HASH
+          - AttributeName: category
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
