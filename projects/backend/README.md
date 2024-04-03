@@ -17,8 +17,5 @@ uvicorn app.main:app --reload
 
 ## To deploy 
 ```
-cd .venv/Lib/site-packages/ 
-zip -r9 ../../../function.zip . 
-cd - 
-zip -g ./function.zip -r app
+sls deploy
 ```

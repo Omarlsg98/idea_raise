@@ -1,5 +1,6 @@
 # This module connects to dynamodb and provides the necessary functions to interact with the database.
 # dynamodb has the table ideas.
+import os
 import uuid
 
 import boto3
@@ -15,7 +16,8 @@ def generate_uuid():
 class IdeasDB:
     def __init__(self):
         self.dynamodb = boto3.resource("dynamodb")
-        self.table = self.dynamodb.Table("ideas")
+        table_name = os.getenv("IDEAS_TABLE")
+        self.table = self.dynamodb.Table(table_name)
 
     def get_ideas(self):
         try:
